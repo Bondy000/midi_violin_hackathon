@@ -8,11 +8,11 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "C:/Users/User/Desktop/CodeProjects/github/midi_violin/midi_violin/include",
-                "C:/Users/User/Desktop/CodeProjects/github/midi_violin/midi_violin/src",
+                "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/include",
+                "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/src",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/variants/standard",
-                "C:/Users/User/Desktop/CodeProjects/github/midi_violin/midi_violin/lib/digitalWriteFast",
+                "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/lib/digitalWriteFast",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
@@ -23,11 +23,11 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "C:/Users/User/Desktop/CodeProjects/github/midi_violin/midi_violin/include",
-                    "C:/Users/User/Desktop/CodeProjects/github/midi_violin/midi_violin/src",
+                    "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/include",
+                    "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/src",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/variants/standard",
-                    "C:/Users/User/Desktop/CodeProjects/github/midi_violin/midi_violin/lib/digitalWriteFast",
+                    "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/lib/digitalWriteFast",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
