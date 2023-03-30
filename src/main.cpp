@@ -5,18 +5,40 @@
 #define SOFTWARE_SERIAL_SPEED 9600
 #define TIMER_VALUE_us 500
 
+#define encoderA 5
+#define encoderB 4
 
 const int touchPin = A0;
-
 int softPot_val = 0;
 
+
 int timerFlag = 0;
+unsigned long milliTime = 0;
+unsigned long pulseHappen = 0;
+
+int interruptEncoder = 2; //define interrupt pin to 2
+volatile int state = LOW; // To make sure variables shared between an ISR
+
+void encoderInterrupt() { 
+    if(!timerFlag){
+        milliTime = micros();
+        timerFlag = 1;
+    }
+    
+    if(timerFlag)
+        pulseHappen++;
+}
 
 void setup() {
     Serial.begin(SOFTWARE_SERIAL_SPEED);
-    Serial.println("hello");
+    Serial.println("Setup Start...");
+    
+    pinMode(interruptEncoder, INPUT_PULLUP);
 
-    /*cli(); //Stop interrupts
+    attachInterrupt(digitalPinToInterrupt(interruptEncoder), encoderInterrupt, RISING);
+    
+    
+    /**
 
     //Set timer2 interrupt at 2kHz (0.5ms T)
     TCCR2A = 0;// Set entire TCCR2A register to 0
@@ -32,8 +54,8 @@ void setup() {
 
     //enable timer compare interrupt
     TIMSK2 |= (1 << OCIE2A);
-
-    sei(); //Allow interrupts*/
+*/
+    sei(); //Allow interrupts
 }
 
 void loop() {
@@ -44,11 +66,50 @@ void loop() {
         softPot_val = map(softPot_val, 15, 540, 0 ,127);
         Serial.println(softPot_val);
     }
-    
+
     delay(50);
     
+    if(timerFlag){
+        unsigned long currentTime = micros();
+        if(milliTime > currentTime){
+            currentTime = (unsigned long)(0 - milliTime) + currentTime;
+        } else{
+            currentTime = currentTime - milliTime;
+        }
+
+        if(currentTime >= 500){
+            Serial.println("Pulse is:");
+            Serial.println(pulseHappen);
+            pulseHappen = 0;
+            timerFlag = 0;
+
+            delay(50);
+        }
+    }
+
+    /*
+    if(digitalReadFast(encoderA)){
+        if(!timerFlag){
+            timerFlag = 1;  
+            milliTime = millis();
+        } 
+        else {
+            pulseHappen++;
+            if(millis() - milliTime >= 1000){
+                
+                Serial.println(pulseHappen);
+                pulseHappen = 0;
+                timerFlag = 0;
+            }
+        }
+
+        if(digitalRead(encoderB)){
+
+        }
+    }
+*/
+    //delay(50);
+
 }
 
-/*ISR (TIMER2_COMPA_vect){
-    timerFlag = 1;
-}*/
+
