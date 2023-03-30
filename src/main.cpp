@@ -5,6 +5,9 @@
 #define SOFTWARE_SERIAL_SPEED 9600
 
 #define PI_MINIMUM_VALUE 3.14
+#define PULSES_IN_TICK 360.0
+
+#define MAX_ROTATION_SPEED 600
 
 #define ENCODER_A_PIN 2
 #define ENCODER_B_PIN 4
@@ -14,6 +17,9 @@
 volatile int encoderTicks = 0; //Keeps track of encoder ticks
 volatile unsigned long lastTickTime = 0; //Time of last encoder tick
 volatile float rotationSpeed = 0; //Current rotation Speed in RPM
+
+volatile int rotationDirection = 0;
+volatile int maxSpeed = 0;
 
 volatile int continousLeft = 0;
 volatile int continousRight = 0;
@@ -65,13 +71,21 @@ void loop() {
     
     
     if(millis() - lastTickTime >= 100){
-        rotationSpeed = (encoderTicks / 120.0) / ((millis() - lastTickTime) /60000.0); //RPM = (ticks / 120) /(time / 60000)
-        //Speed = Time Cycle * perimeter of the Encoder
-        //Time Cycle = (Time counted) / Number of Ticks
-        //Perimeter = 2 * pi * encoder raduis , pi = 3.14
 
-        //rotationSpeed = ((millis() - lastTickTime) / (encoderTicks / 1000));// * (2.0 * PI_MINIMUM_VALUE * (2.0));
-        Serial.println(rotationSpeed);
+        rotationSpeed = (encoderTicks / PULSES_IN_TICK) / ((millis() - lastTickTime) / 60000.0); //RPM = (ticks / Pulses between Ticks) /(time / 60000)
+
+        if(rotationSpeed)
+            rotationDirection = rotationSpeed / abs(rotationSpeed);
+        else
+            rotationDirection = 0;
+
+        Serial.println("Rotations:");
+        Serial.println(rotationDirection);
+        Serial.println(round(rotationSpeed));
+        
+        maxSpeed = round(abs(rotationSpeed)) > MAX_ROTATION_SPEED? MAX_ROTATION_SPEED : round(abs(rotationSpeed));
+        Serial.println(map(maxSpeed, 0, MAX_ROTATION_SPEED, 0, 127));
+
         lastTickTime = millis();
         encoderTicks = 0;
     }
