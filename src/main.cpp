@@ -3,59 +3,53 @@
 #include <digitalWriteFast.h>
 
 #define SOFTWARE_SERIAL_SPEED 9600
-#define TIMER_VALUE_us 500
 
-#define encoderA 5
-#define encoderB 4
+#define PI_MINIMUM_VALUE 3.14
+
+#define ENCODER_A_PIN 2
+#define ENCODER_B_PIN 4
+
+#define NOISE_VALUE_DECREASE 10
+
+volatile int encoderTicks = 0; //Keeps track of encoder ticks
+volatile unsigned long lastTickTime = 0; //Time of last encoder tick
+volatile float rotationSpeed = 0; //Current rotation Speed in RPM
+
+volatile int continousLeft = 0;
+volatile int continousRight = 0;
 
 const int touchPin = A0;
 int softPot_val = 0;
 
-
-int timerFlag = 0;
-unsigned long milliTime = 0;
-unsigned long pulseHappen = 0;
-
-int interruptEncoder = 2; //define interrupt pin to 2
-volatile int state = LOW; // To make sure variables shared between an ISR
-
-void encoderInterrupt() { 
-    if(!timerFlag){
-        milliTime = micros();
-        timerFlag = 1;
+void onEncoderTick() { 
+    if(digitalRead(ENCODER_B_PIN) == HIGH){
+        continousRight++;//Adding to check if there is a continoues value of the same direction
+        continousLeft = 0; //Zero the wrong direction
+        if(continousRight >= NOISE_VALUE_DECREASE){
+            encoderTicks++; 
+        }        
     }
-    
-    if(timerFlag)
-        pulseHappen++;
+    else {
+        continousLeft++; //Adding to check if there is a continoues value of the same direction
+        continousRight = 0; //Zero the wrong direction
+        if(continousLeft >= NOISE_VALUE_DECREASE){
+            encoderTicks--;
+        }     
+    }
+        
 }
+
 
 void setup() {
     Serial.begin(SOFTWARE_SERIAL_SPEED);
     Serial.println("Setup Start...");
-    
-    pinMode(interruptEncoder, INPUT_PULLUP);
 
-    attachInterrupt(digitalPinToInterrupt(interruptEncoder), encoderInterrupt, RISING);
-    
-    
-    /**
+    pinMode(ENCODER_A_PIN, INPUT_PULLUP);
+    pinMode(ENCODER_B_PIN, INPUT_PULLUP);
 
-    //Set timer2 interrupt at 2kHz (0.5ms T)
-    TCCR2A = 0;// Set entire TCCR2A register to 0
-    TCCR2B = 0;// Set entire TCCR2B register to 0
-    TCNT2 = 0; //Initialize counter value to 0
-    //Set compare match register for 1kHz increments
-    OCR2A = 124; // = (16 *10^6) / (64 * 2000) -1  (must be <256 because of Timer2)
+    attachInterrupt(digitalPinToInterrupt(ENCODER_A_PIN), onEncoderTick, RISING);
 
-    //turn CTC mode
-    //TCCR2A |= (1 << WGM21);
-    //set CS21 and CS20 bits for 64 prescalar
-    TCCR2B |= (1 << CS21) | (1 << CS20);
-
-    //enable timer compare interrupt
-    TIMSK2 |= (1 << OCIE2A);
-*/
-    sei(); //Allow interrupts
+    Serial.println("...Setup End");
 }
 
 void loop() {
@@ -69,46 +63,18 @@ void loop() {
 
     delay(50);
     
-    if(timerFlag){
-        unsigned long currentTime = micros();
-        if(milliTime > currentTime){
-            currentTime = (unsigned long)(0 - milliTime) + currentTime;
-        } else{
-            currentTime = currentTime - milliTime;
-        }
+    
+    if(millis() - lastTickTime >= 100){
+        rotationSpeed = (encoderTicks / 120.0) / ((millis() - lastTickTime) /60000.0); //RPM = (ticks / 120) /(time / 60000)
+        //Speed = Time Cycle * perimeter of the Encoder
+        //Time Cycle = (Time counted) / Number of Ticks
+        //Perimeter = 2 * pi * encoder raduis , pi = 3.14
 
-        if(currentTime >= 500){
-            Serial.println("Pulse is:");
-            Serial.println(pulseHappen);
-            pulseHappen = 0;
-            timerFlag = 0;
-
-            delay(50);
-        }
+        //rotationSpeed = ((millis() - lastTickTime) / (encoderTicks / 1000));// * (2.0 * PI_MINIMUM_VALUE * (2.0));
+        Serial.println(rotationSpeed);
+        lastTickTime = millis();
+        encoderTicks = 0;
     }
-
-    /*
-    if(digitalReadFast(encoderA)){
-        if(!timerFlag){
-            timerFlag = 1;  
-            milliTime = millis();
-        } 
-        else {
-            pulseHappen++;
-            if(millis() - milliTime >= 1000){
-                
-                Serial.println(pulseHappen);
-                pulseHappen = 0;
-                timerFlag = 0;
-            }
-        }
-
-        if(digitalRead(encoderB)){
-
-        }
-    }
-*/
-    //delay(50);
 
 }
 
