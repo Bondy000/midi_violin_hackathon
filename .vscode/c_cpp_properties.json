@@ -10,9 +10,9 @@
             "includePath": [
                 "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/include",
                 "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/src",
+                "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/lib/digitalWriteFast",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/variants/standard",
-                "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/lib/digitalWriteFast",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
@@ -25,9 +25,9 @@
                 "path": [
                     "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/include",
                     "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/src",
+                    "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/lib/digitalWriteFast",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/variants/standard",
-                    "c:/Users/User/Documents/PlatformIO/Projects/midi_violin/midi_violin/lib/digitalWriteFast",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
