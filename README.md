@@ -7,8 +7,11 @@ This project uses an Arduino board to read input from a rotary encoder and a mem
 - Arduino uno board
 - Rotary encoder (YUMO A6A2)
 - Membrane potentiometer (SOFTPOT)
+
+## Program Requirements
 - Hairless MIDI<->Serial Bridge
 - LoopMIDI (for Windows) or MIDI Audio Setup (for Mac)
+- MIDI library for Arduino (https://github.com/FortySevenEffects/arduino_midi_library)
 
 ## Installation
 
