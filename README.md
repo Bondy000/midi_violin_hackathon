@@ -9,7 +9,7 @@ This project uses an Arduino board to read input from a rotary encoder and a mem
 - Membrane potentiometer (SOFTPOT)
 - Hairless MIDI<->Serial Bridge
 - LoopMIDI (for Windows) or MIDI Audio Setup (for Mac)
-- 
+
 ## Installation
 
 1) Upload the code to the Arduino board using the Arduino IDE or any other compatible IDE.
@@ -23,7 +23,7 @@ This project uses an Arduino board to read input from a rotary encoder and a mem
 9) In your music DAW, select the virtual MIDI input device created in step 6.
 
 
-##Usage
+## Usage
 
 The code will continuously read input from the rotary encoder and the membrane potentiometer, and send MIDI messages to the virtual MIDI input device created in step 4 of the installation process. The rotary encoder is used to control the the velocity and direction of the MIDI messages, while the membrane potentiometer is used to control the pitch bend of the  messages.
 
