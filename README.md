@@ -4,7 +4,7 @@ This project uses an Arduino board to read input from a rotary encoder and a mem
 
 ## Hardware Requirements
 
-- Arduino board
+- Arduino uno board
 - Rotary encoder (YUMO A6A2)
 - Membrane potentiometer (SOFTPOT)
 - Hairless MIDI<->Serial Bridge
@@ -27,5 +27,5 @@ This project uses an Arduino board to read input from a rotary encoder and a mem
 
 The code will continuously read input from the rotary encoder and the membrane potentiometer, and send MIDI messages to the virtual MIDI input device created in step 4 of the installation process. The rotary encoder is used to control the the velocity and direction of the MIDI messages, while the membrane potentiometer is used to control the pitch bend of the  messages.
 
-To use the code, simply connect the Arduino board to your computer using a USB cable, and run the Hairless MIDI<->Serial Bridge as explained in step 6 of the installation process.
+To use the code, simply connect the Arduino board to your computer using a USB cable, and run the Hairless MIDI<->Serial Bridge as explained in step 7 of the installation process.
 
