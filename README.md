@@ -17,8 +17,8 @@ This project uses an Arduino board to read input from a rotary encoder and a mem
 
 1) Upload the code to the Arduino board using the Arduino IDE or any other compatible IDE.
 2) Connect the rotary encoder and the membrane potentiometer to the Arduino board as follows:
-- Rotary encoder: connect pin A to digital pin 2, pin B to digital pin 4, and GND to GND.
-- Membrane potentiometer: connect the analog pin to pin A0, and GND to GND.
+  - Rotary encoder: connect pin A to digital pin 2, pin B to digital pin 4, and GND to GND.
+  - Membrane potentiometer: connect the analog pin to pin A0, and GND to GND.
 3) Download and install the Hairless MIDI<->Serial Bridge from the official website.(https://projectgus.github.io/hairless-midiserial/)
 4) Create a virtual MIDI input device using LoopMIDI (for Windows) or MIDI Audio Setup (for Mac).
 5) Open the Hairless MIDI<->Serial Bridge and configure it to use the correct serial port and MIDI input device.
